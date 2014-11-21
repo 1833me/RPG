@@ -109,6 +109,8 @@ class RPG(game_mouse.Game):
             flag = False
             if bad.checkHit(self.player.x, self.player.y, self.player.width, self.player.height):
                 self.player.hp -= 5
+                if self.player.hp < 0:
+                    self.player.hp = 0
                 flag = True
             if not flag:
                 livers.append(bad)
