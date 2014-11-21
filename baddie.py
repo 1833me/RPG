@@ -14,12 +14,15 @@ class Baddie:
         self.color = color
         self.speed = speed
         self.boxes = []
+        self.alive = True
+        self.x_tile = x/50
+        self.y_tile = y/50
         return
 
     def getPosition(self):
         return self.x, self.y
 
-    def draw(self, surface, d_x, d_y, s_w, s_h, p_x, p_y):
+    def draw(self, surface, d_x, d_y, s_w, s_h):
 
         if (self.x > d_x + s_w) or (self.x + self.width < d_x) or (self.y > d_y + s_h) or (self.y + self.height < d_y):
             return
@@ -29,8 +32,7 @@ class Baddie:
         pygame.draw.rect(surface, self.color, rect)
         return
 
-    def checkHit(self, other):
-        for box in self.boxes:
-            if box in other.boxes:
-                return True
-        return False
+    def checkHit(self, x, y, w, h):
+        this_rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        that_rect = pygame.Rect(x, y, w, h)
+        return this_rect.colliderect(that_rect)
