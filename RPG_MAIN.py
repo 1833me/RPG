@@ -16,7 +16,8 @@ class RPG(game_mouse.Game):
 
         self.player = Player(self.screen_width/2, self.screen_height/2,
                              50, 50,
-                            (255,0,0))
+                            (255,0,0),
+                            100)
 
         self.baddies = []
 
@@ -29,6 +30,10 @@ class RPG(game_mouse.Game):
     def game_logic(self, keys, newkeys, buttons, newbuttons, mouse_position):
         if pygame.K_EQUALS in newkeys:
             self.baddies.append(Baddie(random.randint(0,self.full_w), random.randint(0,self.full_h), 30, 30, (0, 255, 0), 3))
+        if pygame.K_MINUS in keys:
+            self.player.hp -= 1
+            if self.player.hp < 0:
+                self.player.hp = 0
         if pygame.K_LEFT in keys:
             if self.player.x <= 5:
                 self.display_x -= self.player.x
@@ -58,8 +63,6 @@ class RPG(game_mouse.Game):
             else:
                 self.display_y += 5
                 self.player.y += 5
-        if pygame.K_p in newkeys:
-            print self.player.x, self.player.y
         for b in self.baddies:
             b_x, b_y = b.getPosition()
             p_x, p_y = self.player.getPosition()
@@ -77,11 +80,12 @@ class RPG(game_mouse.Game):
     def paint(self, surface):
         color = (255,255,255)
         surface.fill(color)
-        self.player.draw(surface, self.screen_width/2, self.screen_height/2)
+
         for b in self.baddies:
             b.draw(surface, self.display_x, self.display_y, self.screen_width, self.screen_height, self.player.x, self.player.y)
         pygame.draw.circle(surface, (0,0,255), (1000-self.display_x,900-self.display_y), 40)
         self.drawWalls(surface)
+        self.player.draw(surface, self.screen_width/2, self.screen_height/2, self.screen_width, self.screen_height)
 
     def drawWalls(self, surface):
         pygame.draw.line(surface, (0,0,0,), (0-self.display_x, 0-self.display_y), (self.full_w - self.display_x, 0-self.display_y))
