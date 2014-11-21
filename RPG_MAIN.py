@@ -20,6 +20,7 @@ class RPG(game_mouse.Game):
                             100)
 
         self.baddies = []
+        self.grid = []
 
         game_mouse.Game.__init__(self, "RPG",
                                  self.screen_width,

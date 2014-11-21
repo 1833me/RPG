@@ -14,6 +14,7 @@ class Player:
         self.color = color
         self.hp = hp
         self.max_hp = hp
+        self.boxes = []
         return
 
     def getPosition(self):

@@ -13,6 +13,7 @@ class Baddie:
         self.height = height
         self.color = color
         self.speed = speed
+        self.boxes = []
         return
 
     def getPosition(self):
@@ -27,3 +28,9 @@ class Baddie:
         rect = pygame.Rect(dis_x, dis_y, self.width, self.height)
         pygame.draw.rect(surface, self.color, rect)
         return
+
+    def checkHit(self, other):
+        for box in self.boxes:
+            if box in other.boxes:
+                return True
+        return False
