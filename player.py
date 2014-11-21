@@ -17,8 +17,8 @@ class Player:
     def getPosition(self):
         return self.x, self.y
 
-    def draw(self, surface):
+    def draw(self, surface, x, y):
 
-        rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        rect = pygame.Rect(x, y, self.width, self.height)
         pygame.draw.rect(surface, self.color, rect)
         return
