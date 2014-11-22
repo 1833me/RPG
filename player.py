@@ -1,7 +1,7 @@
 __author__ = 'kids'
 
 import pygame
-IMG_1 = pygame.image.load("Man_left_leg_up.png")
+IMG_1 = pygame.image.load('Man_left_leg_up.png')
 IMG_2 = pygame.image.load("Man_right_leg_up.png")
 IMG_3 = pygame.image.load("Basic_Man.png")
 
