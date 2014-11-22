@@ -1,6 +1,6 @@
 __author__ = 'kids'
 
- import pygame
+import pygame
 
 
 class Player:
