@@ -9,5 +9,4 @@ class World:
         return
 
     def spawn(self):
-
         return
