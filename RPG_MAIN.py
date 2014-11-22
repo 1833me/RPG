@@ -53,7 +53,46 @@ class ConwaysLife(game_mouse.Game):
             if b_y > p_y:
                 b.y -= 1
             elif b_y < p_y:
+<<<<<<< HEAD
                 b.y += 1
+=======
+                bad.y += 1 * bad.speed
+            flag = False
+            if bad.checkHit(self.player.x, self.player.y, self.player.width, self.player.height):
+                self.player.hp -= 5
+                if self.player.hp < 0:
+                    self.player.hp = 0
+                flag = True
+            if not flag:
+                livers.append(bad)
+            """  a = (self.full_w / 50 * bad.y / 50) + bad.x / 50
+            b = (self.full_w / 50 * bad.y / 50) + (bad.x + 50) / 50
+            c = (self.full_w / 50 * (bad.y + 50) / 50) + bad.x / 50
+            d = (self.full_w / 50 * (bad.y + 50) / 50) + (bad.x + 50) / 50
+            boxes = []
+            bad.x_tile = bad.x / 50
+            bad.y_tile = bad.y / 50
+            if a < 900:
+                self.grid[a].append(counter)
+                boxes.append(a)
+                bad.boxes = boxes
+            if b < 900:
+                boxes.append(b)
+                self.grid[b].append(counter)
+            if c < 900:
+                boxes.append(c)
+                self.grid[c].append(counter)
+            if d < 900:
+                boxes.append(d)
+                self.grid[d].append(counter)
+            counter += 1
+
+            for box in bad.boxes:
+                if box in self.player.boxes and not flag: """
+
+        self.baddies = livers
+
+>>>>>>> origin/master
         return
 
             
