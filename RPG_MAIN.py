@@ -26,11 +26,11 @@ class RPG(game_mouse.Game):
                              100, [])
 
         self.baddies = []
-
+        self.bullet = False
         game_mouse.Game.__init__(self, "RPG",
                                  self.screen_width,
                                  self.screen_height,
-                                 10)
+                                 20)
 
     def game_logic(self, keys, newkeys, buttons, newbuttons, mouse_position):
         self.player.standing = True
@@ -38,7 +38,7 @@ class RPG(game_mouse.Game):
 
         if 1 in newbuttons:
             if self.player.ready:
-                self.player.attack(mouse_position)
+                self.bullet = self.player.attack(mouse_position, self.display_x, self.display_y)
         if pygame.K_MINUS in keys:
             self.player.hp -= 1
             if self.player.hp < 0:
@@ -73,7 +73,6 @@ class RPG(game_mouse.Game):
             else:
                 self.display_y -= 5
                 self.player.y -= 5
-                print "hello6"
 
         if pygame.K_DOWN in keys:
             self.player.standing = False
@@ -103,6 +102,11 @@ class RPG(game_mouse.Game):
             elif b_y < p_y:
                 bad.y += 1 * bad.speed
             flag = False
+            if self.bullet:
+                if bad.checkHit(self.bullet.x, self.bullet.y, self.bullet.width, self.bullet.height) and self.bullet.alive:
+                    flag = True
+                    self.bullet.setAlive(False)
+
             if bad.checkHit(self.player.x, self.player.y, self.player.width, self.player.height):
                 self.player.hp -= 5
                 if self.player.hp < 0:
@@ -122,7 +126,18 @@ class RPG(game_mouse.Game):
             bad.draw(surface, self.display_x, self.display_y, self.screen_width, self.screen_height)
 
         self.drawwalls(surface)
-        self.player.draw(surface, self.screen_width / 2, self.screen_height / 2, self.screen_width, self.screen_height)
+        x,y = self.screen_width / 2, self.screen_height / 2
+        self.player.draw(surface, x,y, self.screen_width, self.screen_height)
+        if self.player.ready:
+            surface.blit(self.player.sword, [x+23,y-2])
+        if not self.player.ready:
+            self.player.bullet.moveBullet()
+
+            self.player.bullet.draw(surface)
+            self.player.bullet.life -= 1
+            if self.player.bullet.life <= 0:
+                self.player.ready = True
+                self.player.bullet = False
 
     def drawwalls(self, surface):
         pygame.draw.line(surface, (0, 0, 0), (0 - self.display_x, 0 - self.display_y),

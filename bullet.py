@@ -7,18 +7,20 @@ class Bullet():
         self.height = height
         self.x      = x
         self.y      = y
-        self.speed  = 7
         self.color  = color
         self.alive  = True
         self.hit    = False
-        self.dx =  self.speed
+        self.dx =  0
         self.dy = 0
+        self.life = 10
 
         return
 
     def moveBullet(self):
         self.x += self.dx
+        self.x = int(self.x)
         self.y += self.dy
+        self.y = int(self.y)
         return
 
     def setAlive(self,alive):
@@ -36,8 +38,9 @@ class Bullet():
                 return True
         return False
     
-    def draw(self, surface):
-        rect = pygame.Rect( self.x, self.y, self.width, self.height )
-        pygame.draw.rect(surface, self.color, rect)
+    def draw(self, surface ):
+        if self.alive:
+            rect = pygame.Rect( self.x, self.y, self.width, self.height )
+            pygame.draw.rect(surface, self.color, rect)
         return
         
