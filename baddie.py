@@ -3,6 +3,9 @@ __author__ = 'kids'
 import pygame
 
 GOBLIN = 1
+IMG_G1 = pygame.image.load("Goblin.png")
+IMG_G2 = pygame.image.load("GoblinWalk1.png")
+IMG_G3 = pygame.image.load("GoblinWalk2.png")
 
 class Baddie:
 
@@ -18,6 +21,9 @@ class Baddie:
         self.x_tile = x/50
         self.y_tile = y/50
         self.drops = drops
+        self.walk = 0
+        self.img = IMG_G2
+        self.type = type
         return
 
     def getPosition(self):
@@ -29,8 +35,18 @@ class Baddie:
             return
         dis_x = self.x - d_x
         dis_y = self.y - d_y
-        rect = pygame.Rect(dis_x, dis_y, self.width, self.height)
-        pygame.draw.rect(surface, self.color, rect)
+        if self.type == GOBLIN:
+            self.walk += 1
+            if self.walk >= 3:
+                self.walk = 0
+                if self.img == IMG_G2:
+                    self.img = IMG_G3
+                else:
+                    self.img = IMG_G2
+
+            surface.blit(self.img,[dis_x,dis_y])
+        '''rect = pygame.Rect(dis_x, dis_y, self.width, self.height)
+        pygame.draw.rect(surface, self.color, rect)'''
         return
 
     def checkHit(self, x, y, w, h):
