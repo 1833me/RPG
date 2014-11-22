@@ -34,7 +34,8 @@ class RPG(game_mouse.Game):
         self.grid = []
         if pygame.K_EQUALS in newkeys:
             self.baddies.append(
-                Baddie(random.randint(0, self.full_w), random.randint(0, self.full_h), 30, 30, (0, 255, 0), 3), [])
+                Baddie(random.randint(0, self.full_w), random.randint(0, self.full_h), 30, 30, (0, 255, 0), 3,
+                       ["Drugs"]))
         if pygame.K_MINUS in keys:
             self.player.hp -= 1
             if self.player.hp < 0:
@@ -92,7 +93,6 @@ class RPG(game_mouse.Game):
         if (not r_flag) and (not d_flag):
             boxes.append(d)
         self.player.boxes = boxes
-        counter = 0
         livers = []
         for bad in self.baddies:
 

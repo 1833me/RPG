@@ -2,6 +2,7 @@ __author__ = 'kids'
 
 import pygame
 
+GOBLIN = 1
 
 class Baddie:
 

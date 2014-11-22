@@ -5,7 +5,7 @@ import pygame
 
 class Player:
 
-    def __init__(self, x, y, width, height, color, hp):
+    def __init__(self, x, y, width, height, color, hp, inventory):
 
         self.x = x
         self.y = y
@@ -17,6 +17,7 @@ class Player:
         self.boxes = []
         self.x_tile = x/50
         self.y_tile = y/50
+        self.inventory = inventory
         return
 
     def getPosition(self):
