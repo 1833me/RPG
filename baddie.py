@@ -3,9 +3,11 @@ __author__ = 'kids'
 import pygame
 
 GOBLIN = 1
+BOSS_1 = 10
 IMG_G1 = pygame.image.load("Goblin.png")
 IMG_G2 = pygame.image.load("GoblinWalk1.png")
 IMG_G3 = pygame.image.load("GoblinWalk2.png")
+IMG_BOSS1 = pygame.image.load("FinalDemon.png")
 
 class Baddie:
 
@@ -45,7 +47,11 @@ class Baddie:
                 else:
                     self.img = IMG_G2
 
-            surface.blit(self.img,[dis_x,dis_y])
+
+        if self.type == BOSS_1:
+            self.img = IMG_BOSS1
+
+        surface.blit(self.img,[dis_x,dis_y])
         '''rect = pygame.Rect(dis_x, dis_y, self.width, self.height)
         pygame.draw.rect(surface, self.color, rect)'''
         return

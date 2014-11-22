@@ -9,9 +9,9 @@ PIRATE = 4
 
 WORLD_1 = [
     [
-        50, 100, 2, [[Item("Stone Sword", "WEAPON", 5), 10]], 10, GOBLIN, 2
+        50, 100, 2, [[Item("Stone Sword", "WEAPON", 5), 25]], 10, GOBLIN, 2,
     ],
     [
-        1450, 1400, 2, [[Item("Stone Sword", "WEAPON", 5), 10]], 10, GOBLIN, 2
+        1450, 1400, 2, [[Item("Stone Sword", "WEAPON", 5), 25]], 10, GOBLIN, 2
     ]
 ]

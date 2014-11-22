@@ -5,6 +5,7 @@ from bullet import Bullet
 IMG_1 = pygame.image.load('Man_left_leg_up.png')
 IMG_2 = pygame.image.load("Man_right_leg_up.png")
 IMG_3 = pygame.image.load("Basic_Man.png")
+STONE_SWORD = pygame.image.load("stoneSword.png")
 
 class Player:
 
@@ -79,7 +80,7 @@ class Player:
         l = math.sqrt(dx**2 + dy**2)
         dx /= l
         dy /= l
-        self.bullet = Bullet(12, 35, self.x - off_x + 23,self.y - off_y - 2, (0,0,0), ang)
+        self.bullet = Bullet(12, 35, self.x - off_x + 23,self.y - off_y - 2, (0,0,0), ang, self.sword)
         self.bullet.dx = dx * 20
         self.bullet.dy = dy * 20
 

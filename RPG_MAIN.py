@@ -3,12 +3,15 @@ import game_mouse
 from player import Player
 from WORLDS import *
 from world import World
+import random
+
 
 GOBLIN = 1
 ORC = 2
 TROLL = 3
 PIRATE = 4
 IMG_B = pygame.image.load("background.png")
+STONE_SWORD = pygame.image.load("stoneSword.png")
 
 class RPG(game_mouse.Game):
     def __init__(self, full_w, full_h, width, height):
@@ -19,6 +22,7 @@ class RPG(game_mouse.Game):
         self.display_x = 0
         self.display_y = 0
         self.curr_world = World(WORLD_1)
+        self.stage = 1
 
         self.player = Player(self.screen_width / 2, self.screen_height / 2,
                              31, 50,
@@ -34,7 +38,11 @@ class RPG(game_mouse.Game):
 
     def game_logic(self, keys, newkeys, buttons, newbuttons, mouse_position):
         self.player.standing = True
-        self.baddies += self.curr_world.spawn()
+        if self.stage == 1:
+            self.baddies += self.curr_world.spawn()
+        if self.stage == 1.5 and self.baddies == []:
+            self.stage = 1.75
+            self.baddies.append(self.curr_world.spawn_boss(self.full_w/2,self.full_h/2, 1))
 
         if 1 in newbuttons:
             if self.player.ready:
@@ -107,6 +115,15 @@ class RPG(game_mouse.Game):
                     bad.hp -= self.player.damage
                     if bad.hp <= 0:
                         flag = True
+                        for d in bad.drops:
+                            r = random.randint(1,100)
+                            if r <= d[1]:
+                                if d[0].type == "WEAPON":
+                                    self.player.damage = d[0].value
+                                    if d[0].name == "Stone Sword":
+                                        self.player.sword = STONE_SWORD
+                                        self.stage = 1.5
+
                     self.bullet.setAlive(False)
 
             if bad.checkHit(self.player.x, self.player.y, self.player.width, self.player.height):
