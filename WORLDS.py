@@ -2,6 +2,9 @@ __author__ = 'kids'
 #def __init__(self, x, y, width, height, color, speed, drops):
 #     Spawn x, y, speed, drops{ name, chance/100, weapon/armor, damage}, chance/1000, type
 GOBLIN = 1
+ORC = 2
+TROLL = 3
+PIRATE = 4
 
 WORLD_1 = [
     [

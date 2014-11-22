@@ -5,6 +5,9 @@ from WORLDS import *
 from world import World
 
 GOBLIN = 1
+ORC = 2
+TROLL = 3
+PIRATE = 4
 
 
 class RPG(game_mouse.Game):
