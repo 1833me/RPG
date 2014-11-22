@@ -121,6 +121,8 @@ class RPG(game_mouse.Game):
                     bad.hp -= self.player.damage
                     if bad.hp <= 0:
                         flag = True
+                        if bad.type == BOSS_1:
+                            self.stage = 2
                         for d in bad.drops:
                             r = random.randint(1,100)
                             if r <= d[1]:
