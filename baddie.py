@@ -5,7 +5,7 @@ import pygame
 
 class Baddie:
 
-    def __init__(self, x, y, width, height, color, speed):
+    def __init__(self, x, y, width, height, color, speed, drops):
 
         self.x = x
         self.y = y
@@ -17,6 +17,7 @@ class Baddie:
         self.alive = True
         self.x_tile = x/50
         self.y_tile = y/50
+        self.drops = drops
         return
 
     def getPosition(self):
