@@ -25,3 +25,5 @@ class World:
     def spawn_boss(self, x, y, num):
         if num == 1:
             return Baddie(x, y, 61, 80, (0,0,0), 5, [], BOSS_1, 25)
+        elif num == 2:
+            return Baddie(x, y, 48, 46, (0,0,0), 5, [], BOSS_2, 100)

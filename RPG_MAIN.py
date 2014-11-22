@@ -15,6 +15,7 @@ BOSS_2 = 11
 IMG_B = pygame.image.load("background.png")
 IMG_C = pygame.image.load("BeachWorld.png")
 STONE_SWORD = pygame.image.load("stoneSword.png")
+OBBY_SWORD = pygame.image.load("obsidianSword.png")
 GG = pygame.image.load("GAMEOVER.png")
 
 class RPG(game_mouse.Game):
@@ -44,19 +45,21 @@ class RPG(game_mouse.Game):
         if self.player.hp <= 0:
             return
         self.player.standing = True
-        if self.stage == 1:
+        if self.stage == 1 or self.stage == 2:
             self.baddies += self.curr_world.spawn()
         if self.stage == 1.5 and self.baddies == []:
             self.stage = 1.75
             self.baddies.append(self.curr_world.spawn_boss(self.full_w/2,self.full_h/2, 1))
-
+        if self.stage == 2.5 and self.baddies == []:
+            self.stage = 2.75
+            self.baddies.append(self.curr_world.spawn_boss(self.full_w/2,self.full_h/2, 2))
         if 1 in newbuttons:
             if self.player.ready:
                 self.bullet = self.player.attack(mouse_position, self.display_x, self.display_y)
         if pygame.K_MINUS in keys:
-            self.player.hp -= 1
-            if self.player.hp < 0:
-                self.player.hp = 0
+            self.player.sword = STONE_SWORD
+            self.stage = 1.5
+            self.player.damage = 5
         if pygame.K_LEFT in keys:
             self.player.standing = False
             self.player.stance += 1
@@ -123,6 +126,10 @@ class RPG(game_mouse.Game):
                         flag = True
                         if bad.type == BOSS_1:
                             self.stage = 2
+                            self.curr_world = World(WORLD_2)
+                        elif bad.type == BOSS_2:
+                            self.stage = 3
+                            self.curr_world = World(WORLD_3)
                         for d in bad.drops:
                             r = random.randint(1,100)
                             if r <= d[1]:
@@ -131,6 +138,9 @@ class RPG(game_mouse.Game):
                                     if d[0].name == "Stone Sword":
                                         self.player.sword = STONE_SWORD
                                         self.stage = 1.5
+                                    if d[0].name == "Obsidian Sword":
+                                        self.player.sword = OBBY_SWORD
+                                        self.stage = 2.5
 
                     self.bullet.setAlive(False)
 
@@ -152,9 +162,8 @@ class RPG(game_mouse.Game):
     def paint(self, surface):
 
         color = (255, 255, 255)
-        if self.stage < 2:
-            i = IMG_B
-        elif self.stage == 2:
+        i = IMG_B
+        if self.stage >= 2:
             i = IMG_C
         surface.blit(i,[0-self.display_x,0-self.display_y])
         for bad in self.baddies:

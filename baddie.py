@@ -6,6 +6,7 @@ GOBLIN = 1
 SLIME = 2
 PIRATE =4
 BOSS_1 = 10
+BOSS_2 = 11
 IMG_G1 = pygame.image.load("Goblin.png")
 IMG_G2 = pygame.image.load("GoblinWalk1.png")
 IMG_G3 = pygame.image.load("GoblinWalk2.png")
@@ -13,6 +14,8 @@ IMG_S1 = pygame.image.load("Slime.png")
 IMG_S2 = pygame.image.load("SlimeTall.png")
 IMG_S3 = pygame.image.load("SlimeWide.png")
 IMG_BOSS1 = pygame.image.load("FinalDemon(cropped).png")
+IMG_BOSS2_LEFT = pygame.image.load("pirateCutlassWalk1.png")
+IMG_BOSS2_RIGHT = pygame.image.load("pirateCutlassWalk2.png")
 
 class Baddie:
 
@@ -29,6 +32,7 @@ class Baddie:
         self.y_tile = y/50
         self.drops = drops
         self.walk = 0
+        self.img = IMG_G1
         if type == GOBLIN:
             self.img = IMG_G2
         elif type == SLIME:
@@ -67,6 +71,22 @@ class Baddie:
         elif self.type == BOSS_1:
             self.img = IMG_G1
 
+        elif self.type == BOSS_2:
+            self.walk += 1
+            if self.walk >= 3:
+                self.walk = 0
+                if self.img == IMG_BOSS2_LEFT:
+                    self.img = IMG_BOSS2_RIGHT
+                else:
+                    self.img = IMG_BOSS2_LEFT
+        elif self.type == PIRATE:
+            self.walk += 1
+            if self.walk >= 3:
+                self.walk = 0
+                if self.img == IMG_BOSS2_LEFT:
+                    self.img = IMG_BOSS2_RIGHT
+                else:
+                    self.img = IMG_BOSS2_LEFT
         surface.blit(self.img,[dis_x,dis_y])
         '''rect = pygame.Rect(dis_x, dis_y, self.width, self.height)
         pygame.draw.rect(surface, self.color, rect)'''
