@@ -40,9 +40,9 @@ class Bullet():
                 return True
         return False
     
-    def draw(self, surface):
+    def draw(self, surface, d_x, d_y):
         if self.alive:
             pygame.transform.rotate(IMG_1,self.aang)
-            surface.blit(self.img,[self.x,self.y])
+            surface.blit(self.img,[self.x - d_x,self.y - d_y])
         return
         

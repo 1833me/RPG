@@ -7,7 +7,7 @@ BOSS_1 = 10
 IMG_G1 = pygame.image.load("Goblin.png")
 IMG_G2 = pygame.image.load("GoblinWalk1.png")
 IMG_G3 = pygame.image.load("GoblinWalk2.png")
-IMG_BOSS1 = pygame.image.load("FinalDemon.png")
+IMG_BOSS1 = pygame.image.load("FinalDemon(cropped).png")
 
 class Baddie:
 

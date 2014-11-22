@@ -10,6 +10,7 @@ GOBLIN = 1
 ORC = 2
 TROLL = 3
 PIRATE = 4
+BOSS_1 = 10
 IMG_B = pygame.image.load("background.png")
 STONE_SWORD = pygame.image.load("stoneSword.png")
 
@@ -37,6 +38,8 @@ class RPG(game_mouse.Game):
                                  20)
 
     def game_logic(self, keys, newkeys, buttons, newbuttons, mouse_position):
+        if self.player.hp <= 0:
+            return
         self.player.standing = True
         if self.stage == 1:
             self.baddies += self.curr_world.spawn()
@@ -111,6 +114,7 @@ class RPG(game_mouse.Game):
                 bad.y += 1 * bad.speed
             flag = False
             if self.bullet and self.bullet.alive:
+                print self.bullet.x, self.bullet.y
                 if self.bullet.hitRectangle(bad.x, bad.y, bad.width, bad.height):
                     bad.hp -= self.player.damage
                     if bad.hp <= 0:
@@ -127,6 +131,9 @@ class RPG(game_mouse.Game):
                     self.bullet.setAlive(False)
 
             if bad.checkHit(self.player.x, self.player.y, self.player.width, self.player.height):
+                if bad.type == BOSS_1:
+                    self.player.hp -= 100
+
                 self.player.hp -= 5
                 if self.player.hp < 0:
                     self.player.hp = 0
@@ -152,7 +159,7 @@ class RPG(game_mouse.Game):
         if not self.player.ready:
             self.player.bullet.moveBullet()
 
-            self.player.bullet.draw(surface)
+            self.player.bullet.draw(surface, self.display_x, self.display_y)
             self.player.bullet.life -= 1
             if self.player.bullet.life <= 0:
                 self.player.ready = True
