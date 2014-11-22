@@ -31,6 +31,7 @@ class RPG(game_mouse.Game):
                                  10)
 
     def game_logic(self, keys, newkeys, buttons, newbuttons, mouse_position):
+        self.player.standing = True
         self.grid = []
         if pygame.K_EQUALS in newkeys:
             self.baddies.append(
@@ -40,6 +41,8 @@ class RPG(game_mouse.Game):
             if self.player.hp < 0:
                 self.player.hp = 0
         if pygame.K_LEFT in keys:
+            self.player.standing = False
+            self.player.stance += 1
             if self.player.x <= 5:
                 self.display_x -= self.player.x
                 self.player.x -= self.player.x
@@ -47,6 +50,8 @@ class RPG(game_mouse.Game):
                 self.display_x -= 5
                 self.player.x -= 5
         if pygame.K_RIGHT in keys:
+            self.player.standing = False
+            self.player.stance += 1
             if self.player.x + self.player.width >= self.full_w - 5:
                 self.display_x += self.full_w - self.player.width - self.player.x
                 self.player.x += self.full_w - self.player.width - self.player.x
@@ -54,6 +59,8 @@ class RPG(game_mouse.Game):
                 self.display_x += 5
                 self.player.x += 5
         if pygame.K_UP in keys:
+            self.player.standing = False
+            self.player.stance += 1
             if self.player.y <= 5:
                 self.display_y -= self.player.y
                 self.player.y -= self.player.y
@@ -61,6 +68,8 @@ class RPG(game_mouse.Game):
                 self.display_y -= 5
                 self.player.y -= 5
         if pygame.K_DOWN in keys:
+            self.player.standing = False
+            self.player.stance += 1
             if self.player.y + self.player.height >= self.full_h - 5:
                 self.player.y = self.full_h - self.player.height - self.player.y
                 self.display_y = self.full_h - self.player.height - self.player.y

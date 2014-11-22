@@ -1,7 +1,9 @@
 __author__ = 'kids'
 
 import pygame
-
+IMG_1 = pygame.image.load("Man_left_leg_up.png")
+IMG_2 = pygame.image.load("Man_right_leg_up.png")
+IMG_3 = pygame.image.load("Basic_Man.png")
 
 class Player:
 
@@ -17,6 +19,9 @@ class Player:
         self.boxes = []
         self.x_tile = x/50
         self.y_tile = y/50
+        self.img = IMG_1
+        self.stance = 0
+        self.standing = True
         return
 
     def getPosition(self):
@@ -24,8 +29,17 @@ class Player:
 
     def draw(self, surface, x, y, hp_x, hp_y):
 
-        rect = pygame.Rect(x, y, self.width, self.height)
-        pygame.draw.rect(surface, self.color, rect)
+        if self.standing == True:
+            self.img = IMG_3
+        if self.stance >= 3 and self.standing != True:
+            self.stance = 0
+            self.standing = True
+            if self.img == IMG_1:
+                self.img = IMG_2
+            else:
+                self.img = IMG_1
+
+        surface.blit(self.img, [x,y])
         self.drawHP(surface, hp_x, hp_y)
         return
 
