@@ -7,7 +7,7 @@ IMG_3 = pygame.image.load("Basic_Man.png")
 
 class Player:
 
-    def __init__(self, x, y, width, height, color, hp):
+    def __init__(self, x, y, width, height, color, hp, inventory):
 
         self.x = x
         self.y = y
@@ -22,6 +22,7 @@ class Player:
         self.img = IMG_1
         self.stance = 0
         self.standing = True
+        self.inventory = inventory
         return
 
     def getPosition(self):

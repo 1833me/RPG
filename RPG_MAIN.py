@@ -3,6 +3,10 @@ import game_mouse
 import random
 from player import Player
 from baddie import Baddie
+from WORLDS import *
+from world import World
+
+GOBLIN = 1
 
 
 class RPG(game_mouse.Game):
@@ -13,17 +17,14 @@ class RPG(game_mouse.Game):
         self.screen_height = height
         self.display_x = 0
         self.display_y = 0
+        self.curr_world = World(WORLD_1)
 
         self.player = Player(self.screen_width / 2, self.screen_height / 2,
                              50, 50,
                              (255, 0, 0),
-                             100)
+                             100, [])
 
         self.baddies = []
-        self.grid = []
-        for i in range(0, self.full_h, 50):
-            for j in range(0, self.full_w, 50):
-                self.grid.append([])
 
         game_mouse.Game.__init__(self, "RPG",
                                  self.screen_width,
@@ -32,10 +33,7 @@ class RPG(game_mouse.Game):
 
     def game_logic(self, keys, newkeys, buttons, newbuttons, mouse_position):
         self.player.standing = True
-        self.grid = []
-        if pygame.K_EQUALS in newkeys:
-            self.baddies.append(
-                Baddie(random.randint(0, self.full_w), random.randint(0, self.full_h), 30, 30, (0, 255, 0), 3), [])
+        self.baddies += self.curr_world.spawn()
         if pygame.K_MINUS in keys:
             self.player.hp -= 1
             if self.player.hp < 0:
@@ -49,6 +47,7 @@ class RPG(game_mouse.Game):
             else:
                 self.display_x -= 5
                 self.player.x -= 5
+
         if pygame.K_RIGHT in keys:
             self.player.standing = False
             self.player.stance += 1
@@ -58,6 +57,7 @@ class RPG(game_mouse.Game):
             else:
                 self.display_x += 5
                 self.player.x += 5
+
         if pygame.K_UP in keys:
             self.player.standing = False
             self.player.stance += 1
@@ -67,6 +67,7 @@ class RPG(game_mouse.Game):
             else:
                 self.display_y -= 5
                 self.player.y -= 5
+
         if pygame.K_DOWN in keys:
             self.player.standing = False
             self.player.stance += 1
@@ -77,31 +78,9 @@ class RPG(game_mouse.Game):
                 self.display_y += 5
                 self.player.y += 5
 
-        for i in range(0, self.full_h, 50):
-            for j in range(0, self.full_w, 50):
-                self.grid.append([])
+        if pygame.K_p in keys:
+            print self.player.inventory
 
-        a = (self.full_w / 50 * self.player.y / 50) + self.player.x / 50
-        b = (self.full_w / 50 * self.player.y / 50) + (self.player.x + 50) / 50
-        c = (self.full_w / 50 * (self.player.y + 50) / 50) + self.player.x / 50
-        d = (self.full_w / 50 * (self.player.y + 50) / 50) + (self.player.x + 50) / 50
-        boxes = [a]
-        r_flag = False
-        d_flag = False
-        self.player.x_tile = self.player.x / 50
-        self.player.y_tile = self.player.y / 50
-        if self.player.x_tile >= self.full_w / 50 - 1:
-            r_flag = True
-        if self.player.y_tile >= self.full_h / 50 - 1:
-            d_flag = True
-        if not r_flag:
-            boxes.append(b)
-        if not d_flag:
-            boxes.append(c)
-        if (not r_flag) and (not d_flag):
-            boxes.append(d)
-        self.player.boxes = boxes
-        counter = 0
         livers = []
         for bad in self.baddies:
 
@@ -123,30 +102,6 @@ class RPG(game_mouse.Game):
                 flag = True
             if not flag:
                 livers.append(bad)
-            """  a = (self.full_w / 50 * bad.y / 50) + bad.x / 50
-            b = (self.full_w / 50 * bad.y / 50) + (bad.x + 50) / 50
-            c = (self.full_w / 50 * (bad.y + 50) / 50) + bad.x / 50
-            d = (self.full_w / 50 * (bad.y + 50) / 50) + (bad.x + 50) / 50
-            boxes = []
-            bad.x_tile = bad.x / 50
-            bad.y_tile = bad.y / 50
-            if a < 900:
-                self.grid[a].append(counter)
-                boxes.append(a)
-                bad.boxes = boxes
-            if b < 900:
-                boxes.append(b)
-                self.grid[b].append(counter)
-            if c < 900:
-                boxes.append(c)
-                self.grid[c].append(counter)
-            if d < 900:
-                boxes.append(d)
-                self.grid[d].append(counter)
-            counter += 1
-
-            for box in bad.boxes:
-                if box in self.player.boxes and not flag: """
 
         self.baddies = livers
 
