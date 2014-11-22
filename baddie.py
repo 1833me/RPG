@@ -5,7 +5,6 @@ import pygame
 
 class Baddie:
 
-<<<<<<< HEAD
     def __init__(self, x, y, width, height, color, speed, drops):
         self.x = x
         self.y = y
