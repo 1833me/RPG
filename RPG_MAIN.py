@@ -12,7 +12,9 @@ TROLL = 3
 PIRATE = 4
 BOSS_1 = 10
 IMG_B = pygame.image.load("background.png")
+IMG_C = pygame.image.load("BeachWorld.png")
 STONE_SWORD = pygame.image.load("stoneSword.png")
+GG = pygame.image.load("GAMEOVER.png")
 
 class RPG(game_mouse.Game):
     def __init__(self, full_w, full_h, width, height):
@@ -114,7 +116,6 @@ class RPG(game_mouse.Game):
                 bad.y += 1 * bad.speed
             flag = False
             if self.bullet and self.bullet.alive:
-                print self.bullet.x, self.bullet.y
                 if self.bullet.hitRectangle(bad.x, bad.y, bad.width, bad.height):
                     bad.hp -= self.player.damage
                     if bad.hp <= 0:
@@ -147,6 +148,7 @@ class RPG(game_mouse.Game):
 
     def paint(self, surface):
         if self.player <= 0:
+            surface.blit(GG, [0, 0])
             return
         color = (255, 255, 255)
         surface.blit(IMG_B,[0-self.display_x,0-self.display_y])

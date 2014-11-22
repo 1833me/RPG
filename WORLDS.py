@@ -15,3 +15,10 @@ WORLD_1 = [
         1450, 1400, 2, [[Item("Stone Sword", "WEAPON", 5), 7]], 25, GOBLIN, 2
     ]
 ]
+
+WORLD_2 = [
+
+    [
+
+    ]
+]
