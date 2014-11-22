@@ -8,7 +8,7 @@ GOBLIN = 1
 ORC = 2
 TROLL = 3
 PIRATE = 4
-
+IMG_B = pygame.image.load("background.png")
 
 class RPG(game_mouse.Game):
     def __init__(self, full_w, full_h, width, height):
@@ -69,16 +69,19 @@ class RPG(game_mouse.Game):
             if self.player.y <= 5:
                 self.display_y -= self.player.y
                 self.player.y -= self.player.y
+                print self.display_y
             else:
                 self.display_y -= 5
                 self.player.y -= 5
+                print "hello6"
 
         if pygame.K_DOWN in keys:
             self.player.standing = False
             self.player.stance += 1
             if self.player.y + self.player.height >= self.full_h - 5:
-                self.player.y = self.full_h - self.player.height - self.player.y
-                self.display_y = self.full_h - self.player.height - self.player.y
+                self.display_y += self.full_h - self.player.height - self.player.y
+                self.player.y += self.full_h - self.player.height - self.player.y
+
             else:
                 self.display_y += 5
                 self.player.y += 5
@@ -114,22 +117,22 @@ class RPG(game_mouse.Game):
 
     def paint(self, surface):
         color = (255, 255, 255)
-        surface.fill(color)
+        surface.blit(IMG_B,[0-self.display_x,0-self.display_y])
         for bad in self.baddies:
             bad.draw(surface, self.display_x, self.display_y, self.screen_width, self.screen_height)
-        pygame.draw.circle(surface, (0, 0, 255), (1000 - self.display_x, 900 - self.display_y), 40)
+
         self.drawwalls(surface)
         self.player.draw(surface, self.screen_width / 2, self.screen_height / 2, self.screen_width, self.screen_height)
 
     def drawwalls(self, surface):
         pygame.draw.line(surface, (0, 0, 0), (0 - self.display_x, 0 - self.display_y),
-                         (self.full_w - self.display_x, 0 - self.display_y))
+                         (self.full_w - self.display_x, 0 - self.display_y),10)
         pygame.draw.line(surface, (0, 0, 0), (0 - self.display_x, self.full_h - self.display_y),
-                         (self.full_w - self.display_x, self.full_h - self.display_y))
+                         (self.full_w - self.display_x, self.full_h - self.display_y),10)
         pygame.draw.line(surface, (0, 0, 0), (0 - self.display_x, 0 - self.display_y),
-                         (0 - self.display_x, self.full_h - self.display_y))
+                         (0 - self.display_x, self.full_h - self.display_y),10)
         pygame.draw.line(surface, (0, 0, 0), (self.full_w - self.display_x, 0 - self.display_y),
-                         (self.full_w - self.display_x, self.full_h - self.display_y))
+                         (self.full_w - self.display_x, self.full_h - self.display_y),10)
         return
 
 
