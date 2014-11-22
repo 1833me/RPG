@@ -21,7 +21,7 @@ class RPG(game_mouse.Game):
         self.curr_world = World(WORLD_1)
 
         self.player = Player(self.screen_width / 2, self.screen_height / 2,
-                             50, 50,
+                             31, 50,
                              (255, 0, 0),
                              100, [])
 
