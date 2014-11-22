@@ -25,6 +25,7 @@ class Player:
         self.inventory = inventory
         self.ready = True
         self.sword = pygame.image.load("Stick.png")
+        self.bullet = False
         return
 
     def getPosition(self):
@@ -43,6 +44,7 @@ class Player:
                 self.img = IMG_1
 
         surface.blit(self.img, [x,y])
+        surface.blit(self.sword, [x+31,y])
         self.drawHP(surface, hp_x, hp_y)
         return
 
@@ -64,6 +66,11 @@ class Player:
         m_x = mouse_pos[0]
         m_y = mouse_pos[1]
         ang = math.atan2(m_y - self.y, m_x - self.x)
+
         ang = ang / math.pi * 360
+
         pygame.transform.rotate(self.sword, ang)
+        self.bullet = Bullet(self.x + 31, self.y, )
+        #surface.blit(self.sword, [])
+
 
