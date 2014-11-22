@@ -27,6 +27,7 @@ class Player:
         self.ready = True
         self.sword = pygame.image.load("Stick.png")
         self.bullet = False
+        self.damage = 1
         return
 
     def getPosition(self):

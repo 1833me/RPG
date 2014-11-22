@@ -9,7 +9,7 @@ IMG_G3 = pygame.image.load("GoblinWalk2.png")
 
 class Baddie:
 
-    def __init__(self, x, y, width, height, color, speed, drops, type):
+    def __init__(self, x, y, width, height, color, speed, drops, type, hp):
         self.x = x
         self.y = y
         self.width = width
@@ -24,6 +24,7 @@ class Baddie:
         self.walk = 0
         self.img = IMG_G2
         self.type = type
+        self.hp = hp
         return
 
     def getPosition(self):

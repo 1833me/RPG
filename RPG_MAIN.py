@@ -102,9 +102,11 @@ class RPG(game_mouse.Game):
             elif b_y < p_y:
                 bad.y += 1 * bad.speed
             flag = False
-            if self.bullet:
-                if bad.checkHit(self.bullet.x, self.bullet.y, self.bullet.width, self.bullet.height) and self.bullet.alive:
-                    flag = True
+            if self.bullet and self.bullet.alive:
+                if self.bullet.hitRectangle(bad.x, bad.y, bad.width, bad.height):
+                    bad.hp -= self.player.damage
+                    if bad.hp <= 0:
+                        flag = True
                     self.bullet.setAlive(False)
 
             if bad.checkHit(self.player.x, self.player.y, self.player.width, self.player.height):

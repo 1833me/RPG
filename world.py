@@ -19,5 +19,5 @@ class World:
         for s in self.spawn_points:
             summon = random.randint(0, 1000)
             if summon <= s[4]:
-                new_baddies.append(Baddie(s[0], s[1], 30, 30, (0, 255, 0), s[2], s[3], s[5]))
+                new_baddies.append(Baddie(s[0], s[1], 30, 30, (0, 255, 0), s[2], s[3], s[5], s[6]))
         return new_baddies
