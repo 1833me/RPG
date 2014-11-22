@@ -1,8 +1,8 @@
 import pygame
-
+IMG_1 = pygame.image.load("Stick.png")
 class Bullet():
 
-    def __init__(self,width,height,x,y,color):
+    def __init__(self,width,height,x,y,color, aang):
         self.width  = width
         self.height = height
         self.x      = x
@@ -13,6 +13,7 @@ class Bullet():
         self.dx =  0
         self.dy = 0
         self.life = 10
+        self.aang = aang
 
         return
 
@@ -38,9 +39,9 @@ class Bullet():
                 return True
         return False
     
-    def draw(self, surface ):
+    def draw(self, surface):
         if self.alive:
-            rect = pygame.Rect( self.x, self.y, self.width, self.height )
-            pygame.draw.rect(surface, self.color, rect)
+            pygame.transform.rotate(IMG_1,self.aang)
+            surface.blit(IMG_1,[self.x,self.y])
         return
         
