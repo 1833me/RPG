@@ -1,5 +1,5 @@
 __author__ = 'kids'
-
+#(self, x, y, width, height, color, speed, drops, type)
 import random
 from baddie import Baddie
 
