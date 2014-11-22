@@ -1,6 +1,6 @@
 __author__ = 'kids'
 
-import pygame
+import pygame, math
 IMG_1 = pygame.image.load('Man_left_leg_up.png')
 IMG_2 = pygame.image.load("Man_right_leg_up.png")
 IMG_3 = pygame.image.load("Basic_Man.png")
@@ -23,6 +23,8 @@ class Player:
         self.stance = 0
         self.standing = True
         self.inventory = inventory
+        self.ready = True
+        self.sword = ""
         return
 
     def getPosition(self):
@@ -57,3 +59,11 @@ class Player:
                 (self.y <= y + h)) :
                 return True
         return False
+
+    def attack(self, mouse_pos):
+        m_x = mouse_pos[0]
+        m_y = mouse_pos[1]
+        ang = math.atan2(m_y - self.y, m_x - self.x)
+        ang = ang/math.pi() * 360
+        pygame.transform.rotate(self.sword, ang)
+

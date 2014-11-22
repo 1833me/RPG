@@ -35,6 +35,10 @@ class RPG(game_mouse.Game):
     def game_logic(self, keys, newkeys, buttons, newbuttons, mouse_position):
         self.player.standing = True
         self.baddies += self.curr_world.spawn()
+
+        if 1 in newbuttons:
+            if self.player.ready:
+                self.player.attack(mouse_position)
         if pygame.K_MINUS in keys:
             self.player.hp -= 1
             if self.player.hp < 0:
