@@ -4,6 +4,7 @@ import random
 from baddie import Baddie
 
 BOSS_1 = 10
+BOSS_2 = 11
 
 class World:
 

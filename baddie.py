@@ -3,10 +3,15 @@ __author__ = 'kids'
 import pygame
 
 GOBLIN = 1
+SLIME = 2
+PIRATE =4
 BOSS_1 = 10
 IMG_G1 = pygame.image.load("Goblin.png")
 IMG_G2 = pygame.image.load("GoblinWalk1.png")
 IMG_G3 = pygame.image.load("GoblinWalk2.png")
+IMG_S1 = pygame.image.load("Slime.png")
+IMG_S2 = pygame.image.load("SlimeTall.png")
+IMG_S3 = pygame.image.load("SlimeWide.png")
 IMG_BOSS1 = pygame.image.load("FinalDemon(cropped).png")
 
 class Baddie:
@@ -24,7 +29,10 @@ class Baddie:
         self.y_tile = y/50
         self.drops = drops
         self.walk = 0
-        self.img = IMG_G2
+        if type == GOBLIN:
+            self.img = IMG_G2
+        elif type == SLIME:
+            self.img = IMG_S2
         self.type = type
         self.hp = hp
         return
@@ -47,9 +55,17 @@ class Baddie:
                 else:
                     self.img = IMG_G2
 
+        elif self.type == SLIME:
+            self.walk += 1
+            if self.walk >= 3:
+                self.walk = 0
+                if self.img == IMG_S2:
+                    self.img = IMG_S3
+                else:
+                    self.img = IMG_S2
 
-        if self.type == BOSS_1:
-            self.img = IMG_BOSS1
+        elif self.type == BOSS_1:
+            self.img = IMG_G1
 
         surface.blit(self.img,[dis_x,dis_y])
         '''rect = pygame.Rect(dis_x, dis_y, self.width, self.height)

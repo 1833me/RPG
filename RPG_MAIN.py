@@ -7,10 +7,11 @@ import random
 
 
 GOBLIN = 1
-ORC = 2
+SLIME = 2
 TROLL = 3
 PIRATE = 4
 BOSS_1 = 10
+BOSS_2 = 11
 IMG_B = pygame.image.load("background.png")
 IMG_C = pygame.image.load("BeachWorld.png")
 STONE_SWORD = pygame.image.load("stoneSword.png")
@@ -147,11 +148,13 @@ class RPG(game_mouse.Game):
         return
 
     def paint(self, surface):
-        if self.player <= 0:
-            surface.blit(GG, [0, 0])
-            return
+
         color = (255, 255, 255)
-        surface.blit(IMG_B,[0-self.display_x,0-self.display_y])
+        if self.stage < 2:
+            i = IMG_B
+        elif self.stage == 2:
+            i = IMG_C
+        surface.blit(i,[0-self.display_x,0-self.display_y])
         for bad in self.baddies:
             bad.draw(surface, self.display_x, self.display_y, self.screen_width, self.screen_height)
 
@@ -168,6 +171,9 @@ class RPG(game_mouse.Game):
             if self.player.bullet.life <= 0:
                 self.player.ready = True
                 self.player.bullet = False
+        if self.player.hp <= 0:
+            surface.blit(GG, [0, 0])
+        return
 
     def drawwalls(self, surface):
         pygame.draw.line(surface, (0, 0, 0), (0 - self.display_x, 0 - self.display_y),
