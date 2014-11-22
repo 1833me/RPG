@@ -64,7 +64,7 @@ class Player:
                 return True
         return False
 
-    def attack(self, mouse_pos, off_x, off_y):
+    def attack(self, mouse_pos, off_x, off_y,):
         self.ready = False
         m_x = mouse_pos[0]
         m_y = mouse_pos[1]
@@ -79,7 +79,7 @@ class Player:
         l = math.sqrt(dx**2 + dy**2)
         dx /= l
         dy /= l
-        self.bullet = Bullet(12, 35, self.x - off_x + 23,self.y - off_y - 2, (0,0,0))
+        self.bullet = Bullet(12, 35, self.x - off_x + 23,self.y - off_y - 2, (0,0,0), ang)
         self.bullet.dx = dx * 20
         self.bullet.dy = dy * 20
 
