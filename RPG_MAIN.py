@@ -146,6 +146,8 @@ class RPG(game_mouse.Game):
         return
 
     def paint(self, surface):
+        if self.player <= 0:
+            return
         color = (255, 255, 255)
         surface.blit(IMG_B,[0-self.display_x,0-self.display_y])
         for bad in self.baddies:
