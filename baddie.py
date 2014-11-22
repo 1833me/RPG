@@ -2,10 +2,11 @@ __author__ = 'kids'
 
 import pygame
 
+GOBLIN = 1
 
 class Baddie:
 
-    def __init__(self, x, y, width, height, color, speed, drops):
+    def __init__(self, x, y, width, height, color, speed, drops, type):
         self.x = x
         self.y = y
         self.width = width
