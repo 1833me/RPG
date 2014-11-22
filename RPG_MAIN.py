@@ -1,8 +1,6 @@
 import pygame
 import game_mouse
-import random
 from player import Player
-from baddie import Baddie
 from WORLDS import *
 from world import World
 
